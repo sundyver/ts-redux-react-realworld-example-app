@@ -2,7 +2,7 @@ import { FormEvent, useEffect } from 'react';
 import { createArticle, getArticles } from '../../../services/conduit';
 import { store } from '../../../state/store';
 import { ArticleEditor } from '../../ArticleEditor/ArticleEditor';
-import { initializeEditor, startSubmitting, updateErrors } from '../../ArticleEditor/ArticleEditor.slice';
+import { initializeEditor, startSubmitting } from '../../ArticleEditor/ArticleEditor.slice';
 
 export function NewArticle() {
   useEffect(() => {
