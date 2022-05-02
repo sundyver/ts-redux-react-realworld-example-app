@@ -55,6 +55,39 @@ Note: This project will run the app even if linting fails.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+----------------------------
+Readme changes:  5/2/22 by Michael Robinson
+To see the Selenium tests execute, be sure to launch 'npm start' first to get the webserver running.  Then launch 'npm test' to
+see the "test_setup.test.tsx" tests execute.  
+
+The code I wrote for the tests lives in: test_setup.test.tsx located in the /src directory.
+
+There are no "id" or "name" attributes to reference on the DOM, so I'm using xpath as the selection method for most of this.  Using xpath is NOT OPTIMAL--I would instead ask for ids on all clickable nodes to provide for more durable tests, and then "id" selectors can be referenced directly.
+
+The same also applies to using "linkText" as a selector...this will be troublesome if later localization is done then any tests pointing to the text on the page can/will break.
+
+I added sleep routines in some places to allow pages time to load.  In a production test environment, sleep calls will want to be used only when absolutely necessary to increase speed of batch test runs.  I'm out of time to create a more elegant solution (waits for page loads), but the sleep calls I added should suffice for this demonstration.
+
+Another issue with the test I wrote is that using "Username-<random number>" will over time cause issues as new "create user" calls bump against the same number that was already used--so this is definitely not optimal.  Normally we would want to delete the user out or increment the user or reset the data on set intervals to avoid unstable tests.
+
+I put everything in one test for this quick demonstration but obviously you would want to break up a bunch of tests separately for each piece you are testing.
+
+Other tests I would write if given more time:
+-Editing a user's profile
+-Logging out a user
+-Test that only allowed characters for user, email, and password work for each respective field
+-Test that email string only submits for well-formed email (something@somewhere.place)
+-Testing adding a username that already exists
+-Testing adding an email that already exists
+-Editing an article
+-Deleting an article
+-Testing tags
+-On all text fields:
+  -Test with large amounts of text
+  -Test with a variety of odd characters, i.e. !@#$%^&*()[]\|
+  -Test SQL injection
+----------------------------
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
@@ -64,3 +97,4 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
